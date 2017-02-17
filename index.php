@@ -34,14 +34,4 @@ $service->get("/api/v0.1/bibs/{nyplSource}/{id}", function (Request $request, Re
     return $controller->getBib($parameters["nyplSource"], $parameters["id"]);
 });
 
-$service->get("/api/v0.1/bibs/{nyplSource}/{id}/items", function (Request $request, Response $response, $parameters) {
-    $controller = new Controller\BibController($request, $response);
-    return $controller->getBibItems($parameters["nyplSource"], $parameters["id"]);
-});
-
-$service->post("/api/v0.1/bibs/{nyplSource}/{id}/items", function (Request $request, Response $response, $parameters) {
-    $controller = new Controller\BibController($request, $response);
-    return $controller->createBibItem($parameters["nyplSource"], $parameters["id"]);
-});
-
 $service->run();
