@@ -2,6 +2,7 @@
 namespace NYPL\Starter;
 
 use Dotenv\Dotenv;
+use Dotenv\Exception\InvalidPathException;
 
 class Config
 {
@@ -12,8 +13,15 @@ class Config
 
     protected static $configDirectory = '';
 
-    protected static $defaultRequired =
-        ['DB_USERNAME', 'DB_PASSWORD', 'SLACK_TOKEN', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY'];
+    protected static $publicRequired =
+        [
+            'TIME_ZONE', 'DB_CONNECT_STRING', 'SLACK_CHANNEL', 'SLACK_USERNAME', 'AMAZON_REGION'
+        ];
+
+    protected static $privateRequired =
+        [
+            'DB_USERNAME', 'DB_PASSWORD', 'SLACK_TOKEN', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY'
+        ];
 
     protected static $addedRequired = [];
 
@@ -51,15 +59,18 @@ class Config
 
     protected static function loadConfiguration()
     {
-        if (file_exists(self::getConfigDirectory() . '/' . self::PRIVATE_CONFIG_FILE)) {
+        try {
             $dotEnv = new Dotenv(self::getConfigDirectory(), self::PRIVATE_CONFIG_FILE);
             $dotEnv->load();
+        } catch (InvalidPathException $exception) {
         }
+
+        $dotEnv->required(self::getPrivateRequired());
 
         $dotEnv = new Dotenv(self::getConfigDirectory(), self::PUBLIC_CONFIG_FILE);
         $dotEnv->load();
 
-        $dotEnv->required(self::getDefaultRequired());
+        $dotEnv->required(self::getPublicRequired());
 
         $dotEnv->required(self::getAddedRequired());
 
@@ -117,8 +128,16 @@ class Config
     /**
      * @return array
      */
-    public static function getDefaultRequired()
+    public static function getPublicRequired()
     {
-        return self::$defaultRequired;
+        return self::$publicRequired;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getPrivateRequired(): array
+    {
+        return self::$privateRequired;
     }
 }
