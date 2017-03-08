@@ -1,50 +1,5 @@
 [
     {
-        "name": "firebase/php-jwt",
-        "version": "v4.0.0",
-        "version_normalized": "4.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/firebase/php-jwt.git",
-            "reference": "dccf163dc8ed7ed6a00afc06c51ee5186a428d35"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/firebase/php-jwt/zipball/dccf163dc8ed7ed6a00afc06c51ee5186a428d35",
-            "reference": "dccf163dc8ed7ed6a00afc06c51ee5186a428d35",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2016-07-18 04:51:16",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Firebase\\JWT\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Neuman Vong",
-                "email": "neuman+pear@twilio.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Anant Narayanan",
-                "email": "anant@php.net",
-                "role": "Developer"
-            }
-        ],
-        "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
-        "homepage": "https://github.com/firebase/php-jwt"
-    },
-    {
         "name": "vlucas/phpdotenv",
         "version": "v2.4.0",
         "version_normalized": "2.4.0.0",
@@ -259,70 +214,6 @@
         ]
     },
     {
-        "name": "guzzlehttp/guzzle",
-        "version": "6.2.2",
-        "version_normalized": "6.2.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "ebf29dee597f02f09f4d5bbecc68230ea9b08f60"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ebf29dee597f02f09f4d5bbecc68230ea9b08f60",
-            "reference": "ebf29dee597f02f09f4d5bbecc68230ea9b08f60",
-            "shasum": ""
-        },
-        "require": {
-            "guzzlehttp/promises": "^1.0",
-            "guzzlehttp/psr7": "^1.3.1",
-            "php": ">=5.5"
-        },
-        "require-dev": {
-            "ext-curl": "*",
-            "phpunit/phpunit": "^4.0",
-            "psr/log": "^1.0"
-        },
-        "time": "2016-10-08 15:01:37",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "6.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "src/functions_include.php"
-            ],
-            "psr-4": {
-                "GuzzleHttp\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Michael Dowling",
-                "email": "mtdowling@gmail.com",
-                "homepage": "https://github.com/mtdowling"
-            }
-        ],
-        "description": "Guzzle is a PHP HTTP client library",
-        "homepage": "http://guzzlephp.org/",
-        "keywords": [
-            "client",
-            "curl",
-            "framework",
-            "http",
-            "http client",
-            "rest",
-            "web service"
-        ]
-    },
-    {
         "name": "aws/aws-sdk-php",
         "version": "3.9.4",
         "version_normalized": "3.9.4.0",
@@ -506,76 +397,6 @@
         "homepage": "http://www.doctrine-project.org",
         "keywords": [
             "lexer",
-            "parser"
-        ]
-    },
-    {
-        "name": "doctrine/annotations",
-        "version": "v1.3.1",
-        "version_normalized": "1.3.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/doctrine/annotations.git",
-            "reference": "bd4461328621bde0ae6b1b2675fbc6aca4ceb558"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/annotations/zipball/bd4461328621bde0ae6b1b2675fbc6aca4ceb558",
-            "reference": "bd4461328621bde0ae6b1b2675fbc6aca4ceb558",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/lexer": "1.*",
-            "php": "^5.6 || ^7.0"
-        },
-        "require-dev": {
-            "doctrine/cache": "1.*",
-            "phpunit/phpunit": "^5.6.1"
-        },
-        "time": "2016-12-30 15:59:45",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.4.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Roman Borschel",
-                "email": "roman@code-factory.org"
-            },
-            {
-                "name": "Benjamin Eberlei",
-                "email": "kontakt@beberlei.de"
-            },
-            {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-            },
-            {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
-            },
-            {
-                "name": "Johannes Schmitt",
-                "email": "schmittjoh@gmail.com"
-            }
-        ],
-        "description": "Docblock Annotations Parser",
-        "homepage": "http://www.doctrine-project.org",
-        "keywords": [
-            "annotations",
-            "docblock",
             "parser"
         ]
     },
@@ -1287,17 +1108,17 @@
     },
     {
         "name": "guzzlehttp/psr7",
-        "version": "1.4.0",
-        "version_normalized": "1.4.0.0",
+        "version": "1.4.1",
+        "version_normalized": "1.4.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/psr7.git",
-            "reference": "04a6d1a00ea5da0727ee94309a9f0d3dbaecb569"
+            "reference": "0d6c7ca039329247e4f0f8f8f6506810e8248855"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/psr7/zipball/04a6d1a00ea5da0727ee94309a9f0d3dbaecb569",
-            "reference": "04a6d1a00ea5da0727ee94309a9f0d3dbaecb569",
+            "url": "https://api.github.com/repos/guzzle/psr7/zipball/0d6c7ca039329247e4f0f8f8f6506810e8248855",
+            "reference": "0d6c7ca039329247e4f0f8f8f6506810e8248855",
             "shasum": ""
         },
         "require": {
@@ -1310,7 +1131,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.0"
         },
-        "time": "2017-02-21 01:20:32",
+        "time": "2017-02-27 10:51:17",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1353,18 +1174,152 @@
         ]
     },
     {
-        "name": "nypl/microservice-starter",
-        "version": "0.1.18",
-        "version_normalized": "0.1.18.0",
+        "name": "guzzlehttp/guzzle",
+        "version": "6.2.3",
+        "version_normalized": "6.2.3.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/NYPL/php-microservice-starter.git",
-            "reference": "f0bf4df2b8e5b538d53d94552814bfd02dd736f8"
+            "url": "https://github.com/guzzle/guzzle.git",
+            "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/NYPL/php-microservice-starter/zipball/f0bf4df2b8e5b538d53d94552814bfd02dd736f8",
-            "reference": "f0bf4df2b8e5b538d53d94552814bfd02dd736f8",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8d6c6cc55186db87b7dc5009827429ba4e9dc006",
+            "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/promises": "^1.0",
+            "guzzlehttp/psr7": "^1.4",
+            "php": ">=5.5"
+        },
+        "require-dev": {
+            "ext-curl": "*",
+            "phpunit/phpunit": "^4.0",
+            "psr/log": "^1.0"
+        },
+        "time": "2017-02-28 22:50:30",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "6.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/functions_include.php"
+            ],
+            "psr-4": {
+                "GuzzleHttp\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            }
+        ],
+        "description": "Guzzle is a PHP HTTP client library",
+        "homepage": "http://guzzlephp.org/",
+        "keywords": [
+            "client",
+            "curl",
+            "framework",
+            "http",
+            "http client",
+            "rest",
+            "web service"
+        ]
+    },
+    {
+        "name": "doctrine/annotations",
+        "version": "v1.4.0",
+        "version_normalized": "1.4.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/doctrine/annotations.git",
+            "reference": "54cacc9b81758b14e3ce750f205a393d52339e97"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/doctrine/annotations/zipball/54cacc9b81758b14e3ce750f205a393d52339e97",
+            "reference": "54cacc9b81758b14e3ce750f205a393d52339e97",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/lexer": "1.*",
+            "php": "^5.6 || ^7.0"
+        },
+        "require-dev": {
+            "doctrine/cache": "1.*",
+            "phpunit/phpunit": "^5.7"
+        },
+        "time": "2017-02-24 16:22:25",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Roman Borschel",
+                "email": "roman@code-factory.org"
+            },
+            {
+                "name": "Benjamin Eberlei",
+                "email": "kontakt@beberlei.de"
+            },
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com"
+            },
+            {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com"
+            },
+            {
+                "name": "Johannes Schmitt",
+                "email": "schmittjoh@gmail.com"
+            }
+        ],
+        "description": "Docblock Annotations Parser",
+        "homepage": "http://www.doctrine-project.org",
+        "keywords": [
+            "annotations",
+            "docblock",
+            "parser"
+        ]
+    },
+    {
+        "name": "nypl/microservice-starter",
+        "version": "0.1.25",
+        "version_normalized": "0.1.25.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/NYPL/php-microservice-starter.git",
+            "reference": "e5612220247e5295824d69e7518647769086d7d1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/NYPL/php-microservice-starter/zipball/e5612220247e5295824d69e7518647769086d7d1",
+            "reference": "e5612220247e5295824d69e7518647769086d7d1",
             "shasum": ""
         },
         "require": {
@@ -1378,7 +1333,7 @@
             "vlucas/phpdotenv": "2.4.0",
             "zircote/swagger-php": "2.0.7"
         },
-        "time": "2017-02-21 16:57:17",
+        "time": "2017-03-08 20:40:02",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

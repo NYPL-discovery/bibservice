@@ -63,7 +63,6 @@ class ComposerStaticInit71b52c056a3eeb0d3f5c202b83487be1
         ),
         'F' => 
         array (
-            'Firebase\\JWT\\' => 13,
             'FastRoute\\' => 10,
         ),
         'D' => 
@@ -149,10 +148,6 @@ class ComposerStaticInit71b52c056a3eeb0d3f5c202b83487be1
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
-        ),
-        'Firebase\\JWT\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'FastRoute\\' => 
         array (

@@ -1,13 +1,13 @@
 <?php
 namespace NYPL\Services\Controller;
 
+use NYPL\Services\Model\Response\BulkResponse\BulkBibsResponse;
 use NYPL\Starter\Controller;
 use NYPL\Starter\Filter;
 use NYPL\Services\Model\DataModel\BaseBib\Bib;
-use NYPL\Services\Model\DataModel\BaseItem\Item;
 use NYPL\Services\Model\Response\SuccessResponse\BibsResponse;
 use NYPL\Services\Model\Response\SuccessResponse\BibResponse;
-use NYPL\Services\Model\Response\SuccessResponse\ItemResponse;
+use NYPL\Starter\Model\BulkError;
 use NYPL\Starter\ModelSet;
 
 final class BibController extends Controller
@@ -15,7 +15,7 @@ final class BibController extends Controller
     /**
      * @SWG\Post(
      *     path="/v0.1/bibs",
-     *     summary="Create a new Bib",
+     *     summary="Create new Bibs",
      *     tags={"bibs"},
      *     operationId="createBib",
      *     consumes={"application/json"},
@@ -25,12 +25,15 @@ final class BibController extends Controller
      *         in="body",
      *         description="",
      *         required=true,
-     *         @SWG\Schema(ref="#/definitions/NewBib"),
+     *         @SWG\Schema(
+     *             type="array",
+     *             @SWG\Items(ref="#/definitions/NewBib")
+     *         )
      *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @SWG\Schema(ref="#/definitions/BibResponse")
+     *         @SWG\Schema(ref="#/definitions/BulkBibsResponse")
      *     ),
      *     @SWG\Response(
      *         response="404",
@@ -51,12 +54,27 @@ final class BibController extends Controller
      */
     public function createBib()
     {
-        $bib = new Bib($this->getRequest()->getParsedBody());
+        $models = [];
+        $errors = [];
 
-        $bib->create(true);
+        foreach ($this->getRequest()->getParsedBody() as $count => $bibData) {
+            try {
+                $bib = new Bib($bibData);
+
+                $bib->create(true);
+
+                $models[] = $bib;
+            } catch (\Exception $exception) {
+                $errors[] = new BulkError(
+                    $count,
+                    $exception->getMessage(),
+                    $bibData
+                );
+            }
+        }
 
         return $this->getResponse()->withJson(
-            new BibResponse($bib)
+            new BulkBibsResponse($models, $errors)
         );
     }
 
@@ -179,72 +197,6 @@ final class BibController extends Controller
         return $this->getDefaultReadResponse(
             $bib,
             new BibResponse()
-        );
-    }
-
-    /**
-     * @SWG\Post(
-     *     path="/v0.1/bibs/{nyplSource}/{id}/items",
-     *     summary="Create a new Item for a Bib",
-     *     tags={"bibs"},
-     *     operationId="createBibItem",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter(
-     *         in="path",
-     *         name="nyplSource",
-     *         required=true,
-     *         type="string",
-     *         format="string"
-     *     ),
-     *     @SWG\Parameter(
-     *         in="path",
-     *         name="id",
-     *         required=true,
-     *         type="string",
-     *         format="string"
-     *     ),
-     *     @SWG\Parameter(
-     *         name="NewBibItem",
-     *         in="body",
-     *         description="",
-     *         required=true,
-     *         @SWG\Schema(ref="#/definitions/NewBibItem"),
-     *     ),
-     *     @SWG\Response(
-     *         response=200,
-     *         description="Successful operation",
-     *         @SWG\Schema(ref="#/definitions/ItemResponse")
-     *     ),
-     *     @SWG\Response(
-     *         response="404",
-     *         description="Not found",
-     *         @SWG\Schema(ref="#/definitions/ErrorResponse")
-     *     ),
-     *     @SWG\Response(
-     *         response="500",
-     *         description="Generic server error",
-     *         @SWG\Schema(ref="#/definitions/ErrorResponse")
-     *     ),
-     *     security={
-     *         {
-     *             "api_auth": {"openid offline_access api"}
-     *         }
-     *     }
-     * )
-     */
-    public function createBibItem($nyplSource = '', $id = '')
-    {
-        $data = $this->getRequest()->getParsedBody();
-
-        $data['nyplSource'] = $nyplSource;
-        $data['bibIds'] = [$id];
-
-        $item = new Item($data);
-        $item->create(true);
-
-        return $this->getResponse()->withJson(
-            new ItemResponse($item)
         );
     }
 }
