@@ -1,3 +1,5 @@
+ENVIRONMENT = "development"
+
 TIME_ZONE = "America/New_York"
 
 DB_CONNECT_STRING = "pgsql:host=apiservice.cicyc5fazypj.us-east-1.rds.amazonaws.com;dbname=nypl"

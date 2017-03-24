@@ -36,6 +36,10 @@ final class BibController extends Controller
      *         @SWG\Schema(ref="#/definitions/BulkBibsResponse")
      *     ),
      *     @SWG\Response(
+     *         response="401",
+     *         description="Unauthorized"
+     *     ),
+     *     @SWG\Response(
      *         response="404",
      *         description="Not found",
      *         @SWG\Schema(ref="#/definitions/ErrorResponse")

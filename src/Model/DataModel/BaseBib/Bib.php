@@ -77,7 +77,7 @@ class Bib extends BaseBib implements MessageInterface, ReadInterface, DeleteInte
                     ["name" => "normAuthor", "type" => ["string", "null"]],
                     ["name" => "fixedFields" , "type" => [
                         "null",
-                        ["type" => "array", "items" => [
+                        ["type" => "map", "values" => [
                             ["name" => "fixedField", "type" => "record", "fields" => [
                                 ["name" => "label", "type" => ["string", "null"]],
                                 ["name" => "value", "type" => ["string", "null"]],
