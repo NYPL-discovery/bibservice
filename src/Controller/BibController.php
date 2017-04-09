@@ -63,6 +63,14 @@ final class BibController extends Controller
 
         foreach ($this->getRequest()->getParsedBody() as $count => $bibData) {
             try {
+                if (!isset($bibData['nyplSource'])) {
+                    $bibData['nyplSource'] = 'sierra-nypl';
+                }
+
+                if (!isset($bibData['nyplType'])) {
+                    $bibData['nyplType'] = 'bib';
+                }
+
                 $bib = new Bib($bibData);
 
                 $bib->create(true);

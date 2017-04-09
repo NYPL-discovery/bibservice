@@ -16,7 +16,7 @@ abstract class BaseBib extends DataModel
     public $id;
 
     /**
-     * @SWG\Property(example="nypl-sierra")
+     * @SWG\Property(example="sierra-nypl")
      * @var string
      */
     public $nyplSource;
