@@ -2,12 +2,12 @@
 namespace NYPL\Services\Controller;
 
 use NYPL\Services\Model\Response\BulkResponse\BulkBibsResponse;
+use NYPL\Starter\BulkModels;
 use NYPL\Starter\Controller;
 use NYPL\Starter\Filter;
 use NYPL\Services\Model\DataModel\BaseBib\Bib;
 use NYPL\Services\Model\Response\SuccessResponse\BibsResponse;
 use NYPL\Services\Model\Response\SuccessResponse\BibResponse;
-use NYPL\Starter\Model\BulkError;
 use NYPL\Starter\ModelSet;
 
 final class BibController extends Controller
@@ -58,35 +58,27 @@ final class BibController extends Controller
      */
     public function createBib()
     {
-        $models = [];
-        $errors = [];
+        $bulkModels = new BulkModels();
 
-        foreach ($this->getRequest()->getParsedBody() as $count => $bibData) {
-            try {
-                if (!isset($bibData['nyplSource'])) {
-                    $bibData['nyplSource'] = 'sierra-nypl';
-                }
-
-                if (!isset($bibData['nyplType'])) {
-                    $bibData['nyplType'] = 'bib';
-                }
-
-                $bib = new Bib($bibData);
-
-                $bib->create(true);
-
-                $models[] = $bib;
-            } catch (\Exception $exception) {
-                $errors[] = new BulkError(
-                    $count,
-                    $exception->getMessage(),
-                    $bibData
-                );
+        foreach ($this->getRequest()->getParsedBody() as $bibData) {
+            if (!isset($bibData['nyplSource'])) {
+                $bibData['nyplSource'] = 'sierra-nypl';
             }
+
+            if (!isset($bibData['nyplType'])) {
+                $bibData['nyplType'] = 'bib';
+            }
+
+            $bulkModels->addModel(new Bib($bibData));
         }
 
+        $bulkModels->create(true);
+
         return $this->getResponse()->withJson(
-            new BulkBibsResponse($models, $errors)
+            new BulkBibsResponse(
+                $bulkModels->getModels(),
+                $bulkModels->getBulkErrors()
+            )
         );
     }
 
