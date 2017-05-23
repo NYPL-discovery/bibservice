@@ -8,7 +8,7 @@ use NYPL\Services\Controller;
 use NYPL\Starter\Config;
 use NYPL\Starter\SwaggerGenerator;
 
-Config::initialize(__DIR__ . '/config');
+Config::initialize(__DIR__);
 
 $service = new Service();
 

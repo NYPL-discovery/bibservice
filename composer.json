@@ -2,7 +2,7 @@
   "name": "nypl-services",
   "description": "NYPL Services Package",
   "require": {
-    "nypl/microservice-starter": "~0.1"
+    "nypl/microservice-starter": "^1.0"
   },
   "require-dev": {
   },
