@@ -11,6 +11,7 @@ This package adheres to [PSR-1](http://www.php-fig.org/psr/psr-1/),
 
 * Node.js >=6.0
 * PHP >=7.0
+  * [pdo_pdgsql](http://php.net/manual/en/ref.pdo-pgsql.php)
 
 ## Installation
 
@@ -35,7 +36,7 @@ Various files are used to configure and deploy the Lambda.
    * You should use this file to configure the common settings for the Lambda 
    (e.g. timeout, role, etc.) and include AWS credentials to deploy the Lambda. 
 2. To set local environment variables so the Lambda can be run and tested in a local environment.
-   These parameters are ultimately set by the [var environment files](#var) when the Lambda is deployed.
+   These parameters are ultimately set by the [var environment files](#var_environment) when the Lambda is deployed.
 
 ### package.json
 
