@@ -10,8 +10,13 @@ This package adheres to [PSR-1](http://www.php-fig.org/psr/psr-1/),
 ## Requirements
 
 * Node.js >=6.0
-* PHP >=7.0
+* PHP >=7.0 
   * [pdo_pdgsql](http://php.net/manual/en/ref.pdo-pgsql.php)
+
+Homebrew is highly recommended for PHP:
+  * `brew install php71`
+  * `brew install php71-pdo-pgsql`
+  
 
 ## Installation
 
