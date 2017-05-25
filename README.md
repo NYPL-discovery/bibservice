@@ -1,6 +1,6 @@
 # NYPL Bib Service
 
-This package is intended to be used as a Lambda-based Bib Service using the 
+This package is intended to be used as a Lambda-based Node.js/PHP Bib Service using the 
 [NYPL PHP Microservice Starter](https://github.com/NYPL/php-microservice-starter).
 
 This package adheres to [PSR-1](http://www.php-fig.org/psr/psr-1/), 
@@ -9,8 +9,8 @@ This package adheres to [PSR-1](http://www.php-fig.org/psr/psr-1/),
 
 ## Requirements
 
-* PHP >=7.0
 * Node.js >=6.0
+* PHP >=7.0
 
 ## Installation
 
@@ -18,19 +18,48 @@ This package adheres to [PSR-1](http://www.php-fig.org/psr/psr-1/),
 2. Install required dependencies.
    * Run `npm install` to install Node.js packages.
    * Run `composer install` to install PHP packages.
-   * If you have not installed `node-lambda` globally, run `npm install -g node-lambda`.
-3. Setup [environment configuration](#environment-configuration).
-   * Copy `.env.sample` to `.env` and make necessary changes.
+   * If you have not already installed `node-lambda` as a global package, run `npm install -g node-lambda`.
+3. Setup [configuration](#configuration) files.
+   * Copy the `.env.sample` file to `.env`.
+   * Copy `config/var_qa.env.sample` to `config/var_qa.env` and `config/var_production.env.sample` to `config/var_production.env`.
 
 ## Configuration
 
-### Environment Configuration
+Various files are used to configure and deploy the Lambda.
 
-`.env` is used by `node-lambda` for deploying to and configuring the AWS Lambda. You can also use this file for  
+### .env
 
-### Deployment Configuration
+`.env` is used *locally* for two purposes:
 
-## Features
+1. By `node-lambda` for deploying to and configuring Lambda in *all* environments. 
+   * You should use this file to configure the common settings for the Lambda 
+   (e.g. timeout, role, etc.) and include AWS credentials to deploy the Lambda. 
+2. To set local environment variables so the Lambda can be run and tested in a local environment.
+   These parameters are ultimately set by the [var environment files](#var) when the Lambda is deployed.
+
+### package.json
+
+Configures `npm run` deployment commands for each environment and sets the proper AWS Lambda VPC and
+security group.
+ 
+~~~~
+"scripts": {
+  "deploy-qa": "node-lambda deploy -e qa -f config/deploy_qa.env -S config/event_sources_qa.json -b subnet-f4fe56af -g sg-1d544067",
+  "deploy-production": "node-lambda deploy -e production -f config/deploy_production.env -S config/event_sources_production.json -b subnet-f4fe56af -g sg-1d544067"
+},
+~~~~
+
+### var_app
+
+Configures environment variables common to *all* environments.
+
+### var_*environment*
+
+Configures environment variables specific to each environment.
+
+### event_sources_*environment*
+
+Configures Lambda event sources (triggers) specific to each environment.
 
 ## Usage
 
@@ -42,24 +71,15 @@ To use `node-lambda` to process the sample API Gateway event in `event.json`, ru
 node-lambda run
 ~~~~
 
-
 ### Run as a Web Server
 
-Create an `index.php` with a `Service` object and your [Slim](http://www.slimframework.com/) routes:
+To use the PHP internal web server, run:
 
 ~~~~
-Config::initialize(__DIR__ . '/config');
-
-$service = new NYPL\Starter\Service();
-
-$service->get("/v0.1/bibs", function (Request $request, Response $response) {
-    $controller = new Controller\BibController($request, $response);
-    return $controller->getBibs();
-});
+php -S localhost:8888 -t . index.php
 ~~~~
 
-Configure your web server to load `index.php` on all requests.
-See the `samples/service-config` directory for sample configuration files for an Apache `.htaccess` or Nginx `nginx.conf` installation.
+You can then make a request to the Lambda: `http://localhost:8888/api/v0.1/bibs`.
 
 ### Swagger Documentation Generator
 
