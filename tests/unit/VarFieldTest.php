@@ -1,5 +1,5 @@
 <?php
-namespace NYPL\SchemaBuilder\Tests;
+namespace NYPL\Tests;
 
 use NYPL\Services\Model\DataModel\SubField;
 use NYPL\Services\Model\DataModel\VarField;
