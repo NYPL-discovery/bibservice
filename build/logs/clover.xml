@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1497020719">
-  <project timestamp="1497020719">
+<coverage generated="1497028583">
+  <project timestamp="1497028583">
     <package name="NYPL\Services\Controller">
       <file name="/Users/kevinfriedman/Documents/Sites/bibservice/src/Controller/BibController.php">
         <class name="BibController" namespace="NYPL\Services\Controller">
