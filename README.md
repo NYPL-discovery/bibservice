@@ -1,5 +1,8 @@
 # NYPL Bib Service
 
+[![Build Status](https://travis-ci.org/NYPL-discovery/bibservice.svg?branch=master)](https://travis-ci.org/NYPL-discovery/bibservice)
+[![Coverage Status](https://coveralls.io/repos/github/NYPL-discovery/bibservice/badge.svg?branch=travis)](https://coveralls.io/github/NYPL-discovery/bibservice?branch=travis)
+
 This package is intended to be used as a Lambda-based Node.js/PHP Bib Service using the 
 [NYPL PHP Microservice Starter](https://github.com/NYPL/php-microservice-starter).
 
