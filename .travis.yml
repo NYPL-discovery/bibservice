@@ -2,8 +2,8 @@ language: php
 php:
   - 7.1
 script:
-  - composer install
-  - phpunit --coverage-clover build/logs/clover.xml
+  - composer update
+  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 after_success:
   - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
   - php phpcs.phar -n --standard=PSR1,PSR2 src/
