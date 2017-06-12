@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "deploy-qa": "node-lambda deploy -e qa -f config/var_qa.env -S config/event_sources_qa.json -b subnet-f4fe56af -g sg-1d544067",
-    "deploy-production": "node-lambda deploy -e production -f config/var_production.env -S config/event_sources_production.json -b subnet-f4fe56af -g sg-1d544067"
+    "deploy-production": "node-lambda deploy -e production -f config/var_production.env -S config/event_sources_production.json -b subnet-f4fe56af -g sg-1d544067",
+    "test-recap-bib": "node-lambda run -j tests/events/recap-bib.json -x tests/events/context.json"
   },
   "repository": {
   },

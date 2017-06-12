@@ -30,7 +30,8 @@ Homebrew is highly recommended for PHP:
    * If you have not already installed `node-lambda` as a global package, run `npm install -g node-lambda`.
 3. Setup [configuration](#configuration) files.
    * Copy the `.env.sample` file to `.env`.
-   * Copy `config/var_qa.env.sample` to `config/var_qa.env` and `config/var_production.env.sample` to `config/var_production.env`.
+   * Copy `config/var_env.sample` to `config/var_dev.env`.
+4. Replace sample values in `.env` and `config/var_dev.env`.
 
 ## Configuration
 
@@ -48,25 +49,26 @@ Various files are used to configure and deploy the Lambda.
 
 ### package.json
 
-Configures `npm run` deployment commands for each environment and sets the proper AWS Lambda VPC and
-security group.
+Configures `npm run` commands for each environment for deployment and testing. Deployment commands may also sets
+the proper AWS Lambda VPC and security group.
  
 ~~~~
 "scripts": {
   "deploy-qa": "node-lambda deploy -e qa -f config/deploy_qa.env -S config/event_sources_qa.json -b subnet-f4fe56af -g sg-1d544067",
-  "deploy-production": "node-lambda deploy -e production -f config/deploy_production.env -S config/event_sources_production.json -b subnet-f4fe56af -g sg-1d544067"
+  "deploy-production": "node-lambda deploy -e production -f config/deploy_production.env -S config/event_sources_production.json -b subnet-f4fe56af -g sg-1d544067",
+  "test-recap-bib": "node-lambda run -j tests/events/recap-bib.json -x tests/events/context.json"
 },
 ~~~~
 
-### var_app
+### config/var_app
 
 Configures environment variables common to *all* environments.
 
-### var_*environment*
+### config/var_*environment*.env
 
 Configures environment variables specific to each environment.
 
-### event_sources_*environment*
+### config/event_sources_*environment*
 
 Configures Lambda event sources (triggers) specific to each environment.
 
@@ -77,7 +79,7 @@ Configures Lambda event sources (triggers) specific to each environment.
 To use `node-lambda` to process the sample API Gateway event in `event.json`, run:
 
 ~~~~
-node-lambda run
+npm run test-recap-bib
 ~~~~
 
 ### Run as a Web Server
