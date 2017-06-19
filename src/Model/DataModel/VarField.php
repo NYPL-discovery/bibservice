@@ -130,7 +130,7 @@ class VarField extends Model
     /**
      * @param array $data
      *
-     * @return SubField
+     * @return SubField[]
      */
     public function translateSubFields(array $data = [])
     {

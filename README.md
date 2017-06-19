@@ -1,5 +1,8 @@
 # NYPL Bib Service
 
+[![Build Status](https://travis-ci.org/NYPL-discovery/bibservice.svg?branch=master)](https://travis-ci.org/NYPL-discovery/bibservice)
+[![Coverage Status](https://coveralls.io/repos/github/NYPL-discovery/bibservice/badge.svg?branch=travis)](https://coveralls.io/github/NYPL-discovery/bibservice?branch=travis)
+
 This package is intended to be used as a Lambda-based Node.js/PHP Bib Service using the 
 [NYPL PHP Microservice Starter](https://github.com/NYPL/php-microservice-starter).
 
@@ -25,9 +28,10 @@ Homebrew is highly recommended for PHP:
    * Run `npm install` to install Node.js packages.
    * Run `composer install` to install PHP packages.
    * If you have not already installed `node-lambda` as a global package, run `npm install -g node-lambda`.
-3. Setup [configuration](#configuration) files.
+3. Setup [configuration files](#configuration).
    * Copy the `.env.sample` file to `.env`.
-   * Copy `config/var_qa.env.sample` to `config/var_qa.env` and `config/var_production.env.sample` to `config/var_production.env`.
+   * Copy `config/var_env.sample` to `config/var_dev.env`.
+4. Replace sample values in `.env` and `config/var_dev.env`.
 
 ## Configuration
 
@@ -45,25 +49,26 @@ Various files are used to configure and deploy the Lambda.
 
 ### package.json
 
-Configures `npm run` deployment commands for each environment and sets the proper AWS Lambda VPC and
-security group.
+Configures `npm run` commands for each environment for deployment and testing. Deployment commands may also set
+the proper AWS Lambda VPC and security group.
  
 ~~~~
 "scripts": {
   "deploy-qa": "node-lambda deploy -e qa -f config/deploy_qa.env -S config/event_sources_qa.json -b subnet-f4fe56af -g sg-1d544067",
-  "deploy-production": "node-lambda deploy -e production -f config/deploy_production.env -S config/event_sources_production.json -b subnet-f4fe56af -g sg-1d544067"
+  "deploy-production": "node-lambda deploy -e production -f config/deploy_production.env -S config/event_sources_production.json -b subnet-f4fe56af -g sg-1d544067",
+  "test-recap-bib": "node-lambda run -j tests/events/recap-bib.json -x tests/events/context.json"
 },
 ~~~~
 
-### var_app
+### config/var_app
 
 Configures environment variables common to *all* environments.
 
-### var_*environment*
+### config/var_*environment*.env
 
 Configures environment variables specific to each environment.
 
-### event_sources_*environment*
+### config/event_sources_*environment*
 
 Configures Lambda event sources (triggers) specific to each environment.
 
@@ -74,7 +79,7 @@ Configures Lambda event sources (triggers) specific to each environment.
 To use `node-lambda` to process the sample API Gateway event in `event.json`, run:
 
 ~~~~
-node-lambda run
+npm run test-recap-bib
 ~~~~
 
 ### Run as a Web Server
@@ -95,4 +100,26 @@ Create a Swagger route to generate Swagger specification documentation:
 $service->get("/swagger", function (Request $request, Response $response) {
     return SwaggerGenerator::generate(__DIR__ . "/src", $response);
 });
+~~~~
+
+## Deployment
+
+Before deploying, ensure [configuration files](#configuration) have been properly set up:
+
+1. Copy `config/var_env.sample` and `config/var_env.sample` to `config/var_qa.env` and `config/var_production.env`, respectively.
+   *  Verify environment variables are correct.
+1. Verify `.env` has correct settings for deployment.
+2. Verify `package.json` has correct command-line options for security group and VPC (if applicable).
+4. Verify `config/event_sources_qa.json` and `config/event_sources_production.json` have proper event sources.
+
+To deploy to an environment, run the corresponding command:
+
+~~~~
+npm run deploy-qa
+~~~~
+
+or 
+
+~~~~
+npm run deploy-production
 ~~~~
