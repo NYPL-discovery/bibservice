@@ -28,7 +28,7 @@ Homebrew is highly recommended for PHP:
    * Run `npm install` to install Node.js packages.
    * Run `composer install` to install PHP packages.
    * If you have not already installed `node-lambda` as a global package, run `npm install -g node-lambda`.
-3. Setup [configuration](#configuration) files.
+3. Setup [configuration files](#configuration).
    * Copy the `.env.sample` file to `.env`.
    * Copy `config/var_env.sample` to `config/var_dev.env`.
 4. Replace sample values in `.env` and `config/var_dev.env`.
@@ -49,7 +49,7 @@ Various files are used to configure and deploy the Lambda.
 
 ### package.json
 
-Configures `npm run` commands for each environment for deployment and testing. Deployment commands may also sets
+Configures `npm run` commands for each environment for deployment and testing. Deployment commands may also set
 the proper AWS Lambda VPC and security group.
  
 ~~~~
@@ -100,4 +100,26 @@ Create a Swagger route to generate Swagger specification documentation:
 $service->get("/swagger", function (Request $request, Response $response) {
     return SwaggerGenerator::generate(__DIR__ . "/src", $response);
 });
+~~~~
+
+## Deployment
+
+Before deploying, ensure [configuration files](#configuration) have been properly set up:
+
+1. Copy `config/var_env.sample` and `config/var_env.sample` to `config/var_qa.env` and `config/var_production.env`, respectively.
+   *  Verify environment variables are correct.
+1. Verify `.env` has correct settings for deployment.
+2. Verify `package.json` has correct command-line options for security group and VPC (if applicable).
+4. Verify `config/event_sources_qa.json` and `config/event_sources_production.json` have proper event sources.
+
+To deploy to an environment, run the corresponding command:
+
+~~~~
+npm run deploy-qa
+~~~~
+
+or 
+
+~~~~
+npm run deploy-production
 ~~~~
