@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "936da99722dd4fec796858cb2cf0aca3",
-    "content-hash": "1e1be3558fb3bad11e4e558c5139f9b6",
+    "hash": "10eba427f876429991672f4fd6855c07",
+    "content-hash": "ab7e0a06820b2990ddd38bc351dfd67f",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -652,16 +652,16 @@
         },
         {
             "name": "nypl/microservice-starter",
-            "version": "1.0.9",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NYPL/php-microservice-starter.git",
-                "reference": "01b7d0fb21e03d8f77c547c4e8ef76bccdde741e"
+                "reference": "84ff074b0e75623d837117c3d52a8d3f7eb56f54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NYPL/php-microservice-starter/zipball/01b7d0fb21e03d8f77c547c4e8ef76bccdde741e",
-                "reference": "01b7d0fb21e03d8f77c547c4e8ef76bccdde741e",
+                "url": "https://api.github.com/repos/NYPL/php-microservice-starter/zipball/84ff074b0e75623d837117c3d52a8d3f7eb56f54",
+                "reference": "84ff074b0e75623d837117c3d52a8d3f7eb56f54",
                 "shasum": ""
             },
             "require": {
@@ -690,7 +690,7 @@
                 }
             ],
             "description": "NYPL Microservice Starter",
-            "time": "2017-05-30 13:09:59"
+            "time": "2017-06-26 13:19:07"
         },
         {
             "name": "pimple/pimple",
@@ -2338,16 +2338,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "3.0.3",
+            "version": "3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "02b6b2c7aefe2cdb1185b8dbf8718b0bcedf3ab3"
+                "reference": "74776f8dbc081cab9287c2a601c0c1d842568744"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/02b6b2c7aefe2cdb1185b8dbf8718b0bcedf3ab3",
-                "reference": "02b6b2c7aefe2cdb1185b8dbf8718b0bcedf3ab3",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/74776f8dbc081cab9287c2a601c0c1d842568744",
+                "reference": "74776f8dbc081cab9287c2a601c0c1d842568744",
                 "shasum": ""
             },
             "require": {
@@ -2384,7 +2384,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2017-05-18 10:10:00"
+            "time": "2017-06-20 16:25:05"
         },
         {
             "name": "sebastian/exporter",

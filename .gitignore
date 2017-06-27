@@ -4,3 +4,4 @@ dist
 *.env
 vendor
 build
+.lambda

@@ -64,16 +64,26 @@ exports.handler = function(event, context, callback) {
 
 
     if (process.env.LAMBDA_TASK_ROOT) {
-        var php = spawn('./php-cgi', ['-n', '-d expose_php=Off', 'index.php'], options);
+        var php = spawn(
+            process.env.LAMBDA_TASK_ROOT + '/php-cgi',
+            ['-n', '-d expose_php=Off', '-d opcache.file_cache=/tmp', '-d zend_extension=' + process.env.LAMBDA_TASK_ROOT + '/lib/opcache.so', 'index.php'],
+            options
+        );
     } else {
         var php = spawn('php-cgi', ['-d expose_php=Off', 'index.php'], options);
     }
 
-    if (php.stderr.length) {
+    if (php.error) {
+        callback(php.error);
+        return false;
+    }
+
+    if (php.stderr) {
         php.stderr.toString().split("\n").map(function (message) {
             if (message.trim().length) console.log(message);
         });
     }
+
     var parsedResponse = parser.parseResponse(php.stdout.toString());
 
     callback(null, {
