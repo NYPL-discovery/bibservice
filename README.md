@@ -43,20 +43,21 @@ Various files are used to configure and deploy the Lambda.
 
 1. By `node-lambda` for deploying to and configuring Lambda in *all* environments. 
    * You should use this file to configure the common settings for the Lambda 
-   (e.g. timeout, role, etc.) and include AWS credentials to deploy the Lambda. 
+   (e.g. timeout, Node version). 
 2. To set local environment variables so the Lambda can be run and tested in a local environment.
    These parameters are ultimately set by the [var environment files](#var_environment) when the Lambda is deployed.
 
 ### package.json
 
 Configures `npm run` commands for each environment for deployment and testing. Deployment commands may also set
-the proper AWS Lambda VPC and security group.
+the proper AWS Lambda VPC, security group, and role.
  
 ~~~~
 "scripts": {
-  "deploy-qa": "node-lambda deploy -e qa -f config/deploy_qa.env -S config/event_sources_qa.json -b subnet-f4fe56af -g sg-1d544067",
-  "deploy-production": "node-lambda deploy -e production -f config/deploy_production.env -S config/event_sources_production.json -b subnet-f4fe56af -g sg-1d544067",
-  "test-recap-bib": "node-lambda run -j tests/events/recap-bib.json -x tests/events/context.json"
+    "deploy-dev": "node-lambda deploy -e qa -f config/var_qa.env -S config/event_sources_qa.json -o arn:aws:iam::224280085904:role/lambda_basic_execution -b subnet-f4fe56af -g sg-1d544067 -p nypl-sandbox",
+    "deploy-qa": "node-lambda deploy -e qa -f config/var_qa.env -S config/event_sources_qa.json -o arn:aws:iam::224280085904:role/lambda_basic_execution -b subnet-f4fe56af -g sg-1d544067 -p nypl-sandbox",
+    "deploy-production": "node-lambda deploy -e production -f config/var_production.env -S config/event_sources_production.json -b subnet-f4fe56af -g sg-1d544067",
+    "test-recap-bib": "node-lambda run -j tests/events/recap-bib.json -x tests/events/context.json"
 },
 ~~~~
 
@@ -106,20 +107,14 @@ $service->get("/swagger", function (Request $request, Response $response) {
 
 Before deploying, ensure [configuration files](#configuration) have been properly set up:
 
-1. Copy `config/var_env.sample` and `config/var_env.sample` to `config/var_qa.env` and `config/var_production.env`, respectively.
+1. Copy `config/var_env.sample` to `config/dev.env`, `config/var_qa.env`, and `config/var_production.env`.
    *  Verify environment variables are correct.
-1. Verify `.env` has correct settings for deployment.
-2. Verify `package.json` has correct command-line options for security group and VPC (if applicable).
-4. Verify `config/event_sources_qa.json` and `config/event_sources_production.json` have proper event sources.
+2. Verify `.env` has correct settings for deployment.
+3. Verify `package.json` has correct command-line options for security group, VPC, and role (if applicable).
+4. Verify `config/event_sources_dev.json`, `config/event_sources_qa.json`, `config/event_sources_production.json` have proper event sources.
 
-To deploy to an environment, run the corresponding command:
-
-~~~~
-npm run deploy-qa
-~~~~
-
-or 
+To deploy to an environment, run the corresponding command. For example:
 
 ~~~~
-npm run deploy-production
+npm run deploy-dev
 ~~~~

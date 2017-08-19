@@ -14,9 +14,9 @@ try {
 
     $service = new Service();
 
-    $service->get("/swagger", function (Request $request, Response $response) {
+    $service->get("/docs/bib", function (Request $request, Response $response) {
         return SwaggerGenerator::generate(
-            [__DIR__ . "/src"],
+            [__DIR__ . "/src", __DIR__ . "/vendor/nypl/microservice-starter/src"],
             $response
         );
     });
@@ -40,4 +40,3 @@ try {
 } catch (Exception $exception) {
     ErrorHandler::processShutdownError($exception->getMessage(), $exception);
 }
-
