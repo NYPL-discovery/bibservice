@@ -1,4 +1,4 @@
 TIME_ZONE=America/New_York
 SLACK_CHANNEL=service-logging
-SLACK_USERNAME=bibService
+SLACK_USERNAME=BibService
 AWS_DEFAULT_REGION=us-east-1
