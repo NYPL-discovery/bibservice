@@ -47,7 +47,7 @@ try {
     });
 
     $service->post("/api/v0.1/bib-post-requests", function (Request $request, Response $response) {
-        $controller = new Controller\BibController($request, $response);
+        $controller = new Controller\BasePostController\BibPostController($request, $response);
         return $controller->createBibPostRequest();
     });
 

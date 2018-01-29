@@ -1,9 +1,12 @@
 <?php
 namespace NYPL\Services\Controller;
 
+use NYPL\Services\Model\DataModel\BasePostRequest\BibPostRequest;
 use NYPL\Services\Model\DataModel\BibOclc;
 use NYPL\Services\Model\DataModel\RelatedBibs;
 use NYPL\Services\Model\Response\BulkResponse\BulkBibsResponse;
+use NYPL\Services\Model\Response\PostRequestSuccess;
+use NYPL\Starter\APIException;
 use NYPL\Starter\BulkModels;
 use NYPL\Starter\Controller;
 use NYPL\Starter\Filter;
