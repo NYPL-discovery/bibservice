@@ -71,6 +71,10 @@ abstract class BasePostController extends Controller
     {
         $postRequest = $this->getPostRequest();
 
+        if (!$this->getRequest()->getParsedBody()) {
+            throw new APIException('Invalid JSON provided in request body', null, 0, null, 400);
+        }
+
         $postRequest->translate($this->getRequest()->getParsedBody());
 
         if ($postRequest->getLastId() === null) {
