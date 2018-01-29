@@ -36,6 +36,21 @@ try {
         return $controller->getBib($parameters["nyplSource"], $parameters["id"]);
     });
 
+    $service->get("/api/v0.1/bibs/{nyplSource}/{id}/related", function (Request $request, Response $response, $parameters) {
+        $controller = new Controller\BibController($request, $response);
+        return $controller->getRelatedBibs($parameters["nyplSource"], $parameters["id"]);
+    });
+
+    $service->get("/api/v0.1/bibs/{nyplSource}/{id}/related-simple", function (Request $request, Response $response, $parameters) {
+        $controller = new Controller\BibController($request, $response);
+        return $controller->getRelatedSimpleBibs($parameters["nyplSource"], $parameters["id"]);
+    });
+
+    $service->post("/api/v0.1/bib-post-requests", function (Request $request, Response $response) {
+        $controller = new Controller\BibController($request, $response);
+        return $controller->createBibPostRequest();
+    });
+
     $service->run();
 } catch (Exception $exception) {
     ErrorHandler::processShutdownError($exception->getMessage(), $exception);

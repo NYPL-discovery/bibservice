@@ -1,6 +1,8 @@
 <?php
 namespace NYPL\Services\Controller;
 
+use NYPL\Services\Model\DataModel\BibOclc;
+use NYPL\Services\Model\DataModel\RelatedBibs;
 use NYPL\Services\Model\Response\BulkResponse\BulkBibsResponse;
 use NYPL\Starter\BulkModels;
 use NYPL\Starter\Controller;
@@ -12,6 +14,28 @@ use NYPL\Starter\ModelSet;
 
 final class BibController extends Controller
 {
+    /**
+     * @param string $nyplSource
+     * @param string $bibId
+     *
+     * @return RelatedBibs
+     */
+    protected function getRelatedBibsObject($nyplSource = '', $bibId = '')
+    {
+        $bibOclc = new BibOclc();
+
+        $bibOclc->setNyplSource($nyplSource);
+        $bibOclc->addFilter(new Filter('bib.id', $bibId));
+        $bibOclc->addFilter(new Filter('bib.nyplSource', $nyplSource));
+        $bibOclc->read();
+
+        $relatedBibs = new RelatedBibs();
+        $relatedBibs->setBibOclc($bibOclc);
+        $relatedBibs->read();
+
+        return $relatedBibs;
+    }
+
     /**
      * @SWG\Post(
      *     path="/v0.1/bibs",
@@ -51,7 +75,7 @@ final class BibController extends Controller
      *     ),
      *     security={
      *         {
-     *             "api_auth": {"openid offline_access api"}
+     *             "api_auth": {"openid write:bib"}
      *         }
      *     }
      * )
@@ -132,7 +156,7 @@ final class BibController extends Controller
      *     ),
      *     security={
      *         {
-     *             "api_auth": {"openid offline_access api"}
+     *             "api_auth": {"openid read:bib"}
      *         }
      *     }
      * )
@@ -186,7 +210,7 @@ final class BibController extends Controller
      *     ),
      *     security={
      *         {
-     *             "api_auth": {"openid api"}
+     *             "api_auth": {"openid read:bib"}
      *         }
      *     }
      * )
@@ -201,6 +225,32 @@ final class BibController extends Controller
         return $this->getDefaultReadResponse(
             $bib,
             new BibResponse()
+        );
+    }
+
+    /**
+     * @param string $nyplSource
+     * @param string $id
+     *
+     * @return \Slim\Http\Response
+     */
+    public function getRelatedBibs($nyplSource = '', $id = '')
+    {
+        return $this->getResponse()->withJson(
+            new BibsResponse($this->getRelatedBibsObject($nyplSource, $id)->getBibs())
+        );
+    }
+
+    /**
+     * @param string $nyplSource
+     * @param string $id
+     *
+     * @return \Slim\Http\Response
+     */
+    public function getRelatedSimpleBibs($nyplSource = '', $id = '')
+    {
+        return $this->getResponse()->withJson(
+            new BibsResponse($this->getRelatedBibsObject($nyplSource, $id)->getSimpleBibs())
         );
     }
 }
