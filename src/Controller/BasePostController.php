@@ -81,12 +81,16 @@ abstract class BasePostController extends Controller
             throw new APIException('limit was not specified', null, 0, null, 400);
         }
 
-        $bibs = $this->getRecords($postRequest->getLastId(), $postRequest->getNyplSource(), $postRequest->getLimit());
+        $records = $this->getRecords(
+            $postRequest->getLastId(),
+            $postRequest->getNyplSource(),
+            $postRequest->getLimit()
+        );
 
-        $postRequest->setLastId($this->getLastId($bibs));
+        $postRequest->setLastId($this->getLastId($records));
 
         $bulkModels = new BulkModels();
-        $bulkModels->setSuccessModels($bibs->getData());
+        $bulkModels->setSuccessModels($records->getData());
         $bulkModels->publish();
 
         return $this->getResponse()->withJson(
