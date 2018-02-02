@@ -7,7 +7,7 @@ use NYPL\Starter\Model\ModelTrait\TranslateTrait;
 
 abstract class BasePostRequest extends DataModel
 {
-    public const MAX_LIMIT = 450;
+    public const MAX_LIMIT = 500;
 
     use TranslateTrait;
 

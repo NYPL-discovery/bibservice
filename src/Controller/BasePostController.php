@@ -37,9 +37,11 @@ abstract class BasePostController extends Controller
         $records->addFilter(
             new Filter\QueryFilter('id', $lastId, false, '>')
         );
+
         if ($nyplSource) {
             $records->addFilter(new Filter\QueryFilter('nypl-source', $nyplSource));
         }
+
         $records->setOrderBy('id');
         $records->setLimit($limit);
 
@@ -64,10 +66,11 @@ abstract class BasePostController extends Controller
     }
 
     /**
+     * @param string $streamName
      * @return \Slim\Http\Response
      * @throws APIException|\RuntimeException
      */
-    public function createPostRequest()
+    public function createPostRequest($streamName = '')
     {
         $postRequest = $this->getPostRequest();
 
@@ -95,7 +98,7 @@ abstract class BasePostController extends Controller
 
         $bulkModels = new BulkModels();
         $bulkModels->setSuccessModels($records->getData());
-        $bulkModels->publish();
+        $bulkModels->publish($streamName);
 
         return $this->getResponse()->withJson(
             new PostRequestSuccess($postRequest)

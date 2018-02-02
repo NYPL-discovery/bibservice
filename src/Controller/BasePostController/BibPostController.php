@@ -5,6 +5,7 @@ use NYPL\Services\Controller\BasePostController;
 use NYPL\Services\Model\DataModel\BaseBib\Bib;
 use NYPL\Services\Model\DataModel\BasePostRequest\BibPostRequest;
 use NYPL\Starter\APIException;
+use NYPL\Starter\Config;
 
 final class BibPostController extends BasePostController
 {
@@ -22,8 +23,9 @@ final class BibPostController extends BasePostController
      * @SWG\Post(
      *     path="/v0.1/bib-post-requests",
      *     summary="Create a new Bib Post Request",
+     *     description="Request up to 500 records be re-posted to the BibBulk stream starting from the record after lastId.",
      *     tags={"bibs"},
-     *     operationId="postBib",
+     *     operationId="createBibPostRequest",
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
@@ -62,6 +64,6 @@ final class BibPostController extends BasePostController
      */
     public function createBibPostRequest()
     {
-        return $this->createPostRequest();
+        return $this->createPostRequest(Config::get('BIB_BULK_STREAM_NAME'));
     }
 }

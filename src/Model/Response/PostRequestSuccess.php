@@ -1,7 +1,7 @@
 <?php
 namespace NYPL\Services\Model\Response;
 
-use NYPL\Services\Model\DataModel\BasePostRequest\BibPostRequest;
+use NYPL\Services\Model\DataModel\BasePostRequest;
 
 /**
  * @SWG\Definition(title="PostRequestSuccess", type="object")
@@ -21,20 +21,27 @@ class PostRequestSuccess
     public $nyplSource;
 
     /**
-     * @param BibPostRequest $bibPostRequest
+     * @SWG\Property(example=100)
+     * @var int
      */
-    public function __construct(BibPostRequest $bibPostRequest = null)
+    public $limit;
+
+    /**
+     * @param BasePostRequest $bibPostRequest
+     */
+    public function __construct(BasePostRequest $bibPostRequest = null)
     {
         if ($bibPostRequest) {
             $this->setLastId($bibPostRequest->getLastId());
             $this->setNyplSource($bibPostRequest->getNyplSource());
+            $this->setLimit($bibPostRequest->getLimit());
         }
     }
 
     /**
      * @return string
      */
-    public function getLastId(): string
+    public function getLastId()
     {
         return $this->lastId;
     }
@@ -42,7 +49,7 @@ class PostRequestSuccess
     /**
      * @param string $lastId
      */
-    public function setLastId(string $lastId): void
+    public function setLastId($lastId = '')
     {
         $this->lastId = $lastId;
     }
@@ -50,7 +57,7 @@ class PostRequestSuccess
     /**
      * @return string
      */
-    public function getNyplSource(): string
+    public function getNyplSource()
     {
         return $this->nyplSource;
     }
@@ -58,8 +65,24 @@ class PostRequestSuccess
     /**
      * @param string $nyplSource
      */
-    public function setNyplSource(string $nyplSource): void
+    public function setNyplSource($nyplSource = '')
     {
         $this->nyplSource = $nyplSource;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+
+    /**
+     * @param int $limit
+     */
+    public function setLimit($limit = 0)
+    {
+        $this->limit = (int) $limit;
     }
 }
