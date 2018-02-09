@@ -1,35 +1,35 @@
 language:
-- php
-- node_js
+  - php
+  - node_js
 php:
-- 7.1
+  - 7.1
 node_js:
-- '6'
+  - '6'
 cache:
   directories:
-  - node_modules
+    - node_modules
 install:
-- npm install
+  - npm install
 script:
-- composer update
-- vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+  - composer update
+  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 after_success:
-- vendor/bin/coveralls -v
-- vendor/bin/phpcs -n --standard=PSR1,PSR2 src/
-- vendor/bin/phpcbf src/
+  - vendor/bin/coveralls -v
+  - vendor/bin/phpcs -n --standard=PSR1,PSR2 src/
+  - vendor/bin/phpcbf src/
 deploy:
-- provider: script
-  skip_cleanup: true
-  script: npm run deploy-development
-  on:
-    branch: travis-deployment
-- provider: script
-  skip_cleanup: true
-  script: npm run deploy-production
-  on:
-    branch: master
+  - provider: script
+    skip_cleanup: true
+    script: npm run deploy-development
+    on:
+      branch: travis-deployment
+  - provider: script
+    skip_cleanup: true
+    script: npm run deploy-production
+    on:
+      branch: master
 after_deploy:
-- echo 'Successfully deployed to AWS'
+  - echo 'Successfully deployed to AWS'
 env:
   global:
     secure: P/mwVJVxPonO4NQdUYtNPYNF2F8b9cEP3nb4OBTuHyFf0Hmtrq7QUiQhq9HjqwL8WgrUoddI1f8IVW82b6nTry3dSY4I9ZCxSpyk41UtslG0VB4CW2AzDjDCi7wJwfoTHKVqUJaEJYQxyZTH0qbLD1rvzKSRj8dYfu2/3flEOpgLQ8CzjBrjbY638UsWa+Oc+5SHxsk/1SNi7ZHdsZcOfGbfOw05cyhDLtJnugu506lsW3R1GtsxGbm3meDZJdRZkItOb92K1E5KjAd2ktHdUJGjcjufKDwzLsbqcWrmUsuaOmwV3pCNzr9+OC3+DfxmZnCJdj0XCbpF8q/f18EhW2m3SU+ke9ZhjKzyuc6qBzuqpP+JNmhckxuOkuiiPfL6c1jKJYA0faqoAnVoLsTMZAyHBHXh1A+Lz89hr1C+2mPBvUcwAPnoUXJnd3eyQBq79ns6e+4l5D+DLbapA0T2Ct28H95+b+vFYKesuXkGNu/rCbMuRlr0C78xPLWf7uNia5UvarBV2mBmwNKluRGJmiWww58tn61CeC6p7tJCrH8Ic5KEkf4lMHbsEJsz3YlkCXKkYrXTqbhRtEMDacUBvb7zLLsCicxKjOTzbxu5h+yq3Ja6D/YXx2WEOY4gcxCgsOKStlKypst1gBmhZi1DMQ6QedS3vK0qUBNmM1fcV4A=
