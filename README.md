@@ -27,10 +27,9 @@ Homebrew is highly recommended for PHP:
 2. Install required dependencies.
    * Run `npm install` to install Node.js packages.
    * Run `composer install` to install PHP packages.
-   * If you have not already installed `node-lambda` as a global package, run `npm install -g node-lambda`.
 3. Setup [local configuration file](#configuration).
    * Copy the `config/development.env` file to `config/local.env`.
-4. Replace values in `config/local.env` with appropriate local configuration values.
+4. Replace values in `config/local.env` with appropriate local, development configuration values.
 
 ## Configuration
 
@@ -56,7 +55,7 @@ Configures `npm run` commands for each environment for deployment and testing. D
 
 ### config/global.env
 
-Configures non-secret environment variables common to *all* environments.
+Configures (non-secret) environment variables common to *all* environments.
 
 ### config/*environment*.env
 
@@ -65,6 +64,8 @@ Configures environment variables specific to each environment.
 ### config/event_sources_*environment*.json
 
 Configures Lambda event sources (triggers) specific to each environment.
+
+Secrets *MUST* be encrypted using KMS.
 
 ## Usage
 
