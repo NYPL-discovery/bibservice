@@ -1,13 +1,13 @@
 <?php
 namespace NYPL\Services\Controller;
 
+use NYPL\Services\Model\DataModel\BaseBib\Bib;
 use NYPL\Services\Model\DataModel\BasePostRequest;
 use NYPL\Services\Model\Response\PostRequestSuccess;
 use NYPL\Starter\APIException;
 use NYPL\Starter\BulkModels;
 use NYPL\Starter\Controller;
 use NYPL\Starter\Filter;
-use NYPL\Services\Model\DataModel\BaseBib\Bib;
 use NYPL\Starter\Model;
 use NYPL\Starter\ModelSet;
 

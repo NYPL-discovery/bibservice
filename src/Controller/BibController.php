@@ -142,6 +142,20 @@ final class BibController extends Controller
      *         required=false,
      *         type="string"
      *     ),
+     *     @SWG\Parameter(
+     *         name="createdDate",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *         description="Specific start date or date range (e.g. [2013-09-03T13:17:45Z,2013-09-03T13:37:45Z])"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="updatedDate",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *         description="Specific start date or date range (e.g. [2013-09-03T13:17:45Z,2013-09-03T13:37:45Z])"
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="Successful operation",
@@ -170,7 +184,7 @@ final class BibController extends Controller
             new ModelSet(new Bib()),
             new BibsResponse(),
             null,
-            ['barcode', 'nyplSource', 'id']
+            ['barcode', 'nyplSource', 'id', 'updatedDate', 'createdDate']
         );
     }
 
