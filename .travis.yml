@@ -23,7 +23,7 @@ deploy:
     skip_cleanup: true
     script: npm run deploy-development-vpc
     on:
-      branch: travis-deployment
+      branch: development
   - provider: script
     skip_cleanup: true
     script: npm run deploy-production-vpc
