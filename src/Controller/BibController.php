@@ -156,6 +156,13 @@ final class BibController extends Controller
      *         type="string",
      *         description="Specific start date or date range (e.g. [2013-09-03T13:17:45Z,2013-09-03T13:37:45Z])"
      *     ),
+     *     @SWG\Parameter(
+     *         name="standardNumbers",
+     *         in="query",
+     *         required=false,
+     *         type="string",
+     *         description="Separate multiple numbers with a comma"
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="Successful operation",
@@ -180,8 +187,20 @@ final class BibController extends Controller
      */
     public function getBibs()
     {
+        $bibs = new ModelSet(new Bib());
+
+        if ($standardNumbers = $this->getRequest()->getQueryParam('standardNumbers')) {
+            $bibs->addFilter(new Filter\QueryFilter(
+                'standardNumbers',
+                $standardNumbers,
+                true
+            ));
+
+            $bibs->setLimit(0);
+        }
+
         return $this->getDefaultReadResponse(
-            new ModelSet(new Bib()),
+            $bibs,
             new BibsResponse(),
             null,
             ['barcode', 'nyplSource', 'id', 'updatedDate', 'createdDate']

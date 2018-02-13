@@ -123,6 +123,10 @@ abstract class BaseBib extends DataModel
      */
     public $normAuthor;
 
+    /**
+     * @var array
+     */
+    public $standardNumbers = [];
 
     /**
      * @SWG\Property()
@@ -191,7 +195,8 @@ abstract class BaseBib extends DataModel
      */
     public function translateUpdatedDate($updatedDate = '')
     {
-        return new LocalDateTime(LocalDateTime::FORMAT_DATE_TIME_RFC, $updatedDate);
+        return new LocalDateTime(LocalDateTime::FORMAT_DATE_TIME_RFC,
+            $updatedDate);
     }
 
     /**
@@ -217,7 +222,10 @@ abstract class BaseBib extends DataModel
      */
     public function translateCreatedDate($createdDate = '')
     {
-        return new LocalDateTime(LocalDateTime::FORMAT_DATE_TIME_RFC, $createdDate);
+        return new LocalDateTime(
+            LocalDateTime::FORMAT_DATE_TIME_RFC,
+            $createdDate
+        );
     }
 
     /**
@@ -349,7 +357,7 @@ abstract class BaseBib extends DataModel
      */
     public function setPublishYear($publishYear)
     {
-        $this->publishYear = (int) $publishYear;
+        $this->publishYear = (int)$publishYear;
     }
 
     /**
@@ -375,7 +383,10 @@ abstract class BaseBib extends DataModel
      */
     public function translateCatalogDate($catalogDate = '')
     {
-        return new LocalDateTime(LocalDateTime::FORMAT_DATE, $catalogDate);
+        return new LocalDateTime(
+            LocalDateTime::FORMAT_DATE,
+            $catalogDate
+        );
     }
 
     /**
@@ -417,6 +428,10 @@ abstract class BaseBib extends DataModel
      */
     public function setVarFields($varFields)
     {
+        if ($varFields) {
+            $this->extractVarFields($varFields);
+        }
+
         $this->varFields = $varFields;
     }
 
@@ -580,5 +595,85 @@ abstract class BaseBib extends DataModel
     public function setNyplType($nyplType)
     {
         $this->nyplType = $nyplType;
+    }
+
+    /**
+     * @param string $standardNumber
+     */
+    public function addStandardNumber($standardNumber = '')
+    {
+        $this->standardNumbers[] = trim($standardNumber);
+    }
+
+    /**
+     * @return array
+     */
+    public function getStandardNumbers()
+    {
+        return $this->standardNumbers;
+    }
+
+    /**
+     * @param array $standardNumbers
+     */
+    public function setStandardNumbers(array $standardNumbers = [])
+    {
+        $this->standardNumbers = $standardNumbers;
+    }
+
+    /**
+     * @param $data
+     *
+     * @return array
+     */
+    public function translateStandardNumbers($data)
+    {
+        if (is_string($data)) {
+            $data = json_decode($data);
+
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array $varFields
+     */
+    protected function extractVarFields(array $varFields = [])
+    {
+        if (!$this->getStandardNumbers()) {
+            $extractStandardNumbers = true;
+        }
+
+        /**
+         * @var VarField $varField
+         */
+        foreach ($varFields as $varField) {
+            if (isset($extractStandardNumbers)) {
+                $this->extractStandardNumber($varField);
+            }
+        }
+    }
+
+    /**
+     * @param VarField $varField
+     */
+    protected function extractStandardNumber(VarField $varField)
+    {
+        if ($varField->getFieldTag() === 'i' && $varField->getMarcTag() === '020' && $varField->getSubfields()) {
+            $subField = $varField->getSubfields()[0];
+
+            if ($subField->getTag() === 'a') {
+                $this->addStandardNumber(strtok($subField->getContent(), ' '));
+            }
+        }
+
+        if ($varField->getFieldTag() === 'l' && $varField->getMarcTag() === '024' && $varField->getSubfields()) {
+            $subField = $varField->getSubfields()[0];
+
+            if ($subField->getTag() === 'a') {
+                $this->addStandardNumber(strtok($subField->getContent(), ' '));
+            }
+        }
     }
 }
