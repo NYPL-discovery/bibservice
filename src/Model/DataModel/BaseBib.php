@@ -124,7 +124,8 @@ abstract class BaseBib extends DataModel
     public $normAuthor;
 
     /**
-     * @var array
+     * @SWG\Property()
+     * @var string[]
      */
     public $standardNumbers = [];
 
