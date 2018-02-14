@@ -157,7 +157,7 @@ final class BibController extends Controller
      *         description="Specific start date or date range (e.g. [2013-09-03T13:17:45Z,2013-09-03T13:37:45Z])"
      *     ),
      *     @SWG\Parameter(
-     *         name="standardNumbers",
+     *         name="standardNumber",
      *         in="query",
      *         required=false,
      *         type="string",
@@ -189,10 +189,10 @@ final class BibController extends Controller
     {
         $bibs = new ModelSet(new Bib());
 
-        if ($standardNumbers = $this->getRequest()->getQueryParam('standardNumbers')) {
+        if ($standardNumber = $this->getRequest()->getQueryParam('standardNumber')) {
             $bibs->addFilter(new Filter\QueryFilter(
                 'standardNumbers',
-                $standardNumbers,
+                $standardNumber,
                 true
             ));
 

@@ -602,7 +602,11 @@ abstract class BaseBib extends DataModel
      */
     public function addStandardNumber($standardNumber = '')
     {
-        $this->standardNumbers[] = trim($standardNumber);
+        $standardNumber = trim($standardNumber);
+
+        if ($standardNumber) {
+            $this->standardNumbers[] = $standardNumber;
+        }
     }
 
     /**
