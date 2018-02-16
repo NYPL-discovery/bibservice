@@ -78,7 +78,7 @@ final class BibController extends Controller
      *     ),
      *     security={
      *         {
-     *             "api_auth": {"openid write:bib"}
+     *             "api_auth": {"openid" , "write:bib"}
      *         }
      *     }
      * )
@@ -180,7 +180,7 @@ final class BibController extends Controller
      *     ),
      *     security={
      *         {
-     *             "api_auth": {"openid read:bib"}
+     *             "api_auth": {"openid", "read:bib"}
      *         }
      *     }
      * )
@@ -246,7 +246,7 @@ final class BibController extends Controller
      *     ),
      *     security={
      *         {
-     *             "api_auth": {"openid read:bib"}
+     *             "api_auth": {"openid", "read:bib"}
      *         }
      *     }
      * )

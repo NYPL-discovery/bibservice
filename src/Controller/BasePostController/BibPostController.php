@@ -56,7 +56,7 @@ final class BibPostController extends BasePostController
      *     ),
      *     security={
      *         {
-     *             "api_auth": {"openid read:bib"}
+     *             "api_auth": {"openid", "read:bib"}
      *         }
      *     }
      * )
