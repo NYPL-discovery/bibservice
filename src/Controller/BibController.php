@@ -1,12 +1,9 @@
 <?php
 namespace NYPL\Services\Controller;
 
-use NYPL\Services\Model\DataModel\BasePostRequest\BibPostRequest;
 use NYPL\Services\Model\DataModel\BibOclc;
 use NYPL\Services\Model\DataModel\RelatedBibs;
 use NYPL\Services\Model\Response\BulkResponse\BulkBibsResponse;
-use NYPL\Services\Model\Response\PostRequestSuccess;
-use NYPL\Starter\APIException;
 use NYPL\Starter\BulkModels;
 use NYPL\Starter\Controller;
 use NYPL\Starter\Filter;
@@ -163,6 +160,12 @@ final class BibController extends Controller
      *         type="string",
      *         description="Separate multiple numbers with a comma"
      *     ),
+     *     @SWG\Parameter(
+     *         name="controlNumber",
+     *         in="query",
+     *         required=false,
+     *         type="string"
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="Successful operation",
@@ -203,7 +206,7 @@ final class BibController extends Controller
             $bibs,
             new BibsResponse(),
             null,
-            ['barcode', 'nyplSource', 'id', 'updatedDate', 'createdDate']
+            ['barcode', 'nyplSource', 'id', 'updatedDate', 'createdDate', 'controlNumber']
         );
     }
 

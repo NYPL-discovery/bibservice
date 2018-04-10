@@ -130,6 +130,12 @@ abstract class BaseBib extends DataModel
     public $standardNumbers = [];
 
     /**
+     * @SWG\Property(example="946910641", type="string")
+     * @var string
+     */
+    public $controlNumber = '';
+
+    /**
      * @SWG\Property()
      * @var FixedField[]
      */
@@ -650,6 +656,10 @@ abstract class BaseBib extends DataModel
             $extractStandardNumbers = true;
         }
 
+        if (!$this->getControlNumber()) {
+            $extractControlNumber = true;
+        }
+
         /**
          * @var VarField $varField
          */
@@ -657,6 +667,20 @@ abstract class BaseBib extends DataModel
             if (isset($extractStandardNumbers)) {
                 $this->extractStandardNumber($varField);
             }
+
+            if (isset($extractControlNumber)) {
+                $this->extractControlNumber($varField);
+            }
+        }
+    }
+
+    /**
+     * @param VarField $varField
+     */
+    protected function extractControlNumber(VarField $varField)
+    {
+        if ($varField->getFieldTag() === 'o' && $varField->getMarcTag() === '001' && $varField->getContent()) {
+            $this->setControlNumber(trim($varField->getContent()));
         }
     }
 
@@ -680,5 +704,21 @@ abstract class BaseBib extends DataModel
                 $this->addStandardNumber(strtok($subField->getContent(), ' '));
             }
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getControlNumber()
+    {
+        return $this->controlNumber;
+    }
+
+    /**
+     * @param string $controlNumber
+     */
+    public function setControlNumber($controlNumber = '')
+    {
+        $this->controlNumber = $controlNumber;
     }
 }
