@@ -164,7 +164,8 @@ final class BibController extends Controller
      *         name="controlNumber",
      *         in="query",
      *         required=false,
-     *         type="string"
+     *         type="string",
+     *         description="Separate multiple numbers with a comma"
      *     ),
      *     @SWG\Response(
      *         response=200,
