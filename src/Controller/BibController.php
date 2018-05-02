@@ -207,7 +207,7 @@ final class BibController extends Controller
             $bibs,
             new BibsResponse(),
             null,
-            ['barcode', 'nyplSource', 'id', 'updatedDate', 'createdDate', 'controlNumber']
+            ['barcode', 'nyplSource', 'id', 'updatedDate', 'createdDate', 'controlNumber', 'deleted']
         );
     }
 
