@@ -167,6 +167,16 @@ final class BibController extends Controller
      *         type="string",
      *         description="Separate multiple numbers with a comma"
      *     ),
+     *     @SWG\Parameter(
+     *         name="deleted",
+     *         in="query",
+     *         required=false,
+     *          type="boolean",
+     *          @SWG\Items(
+     *              enum={"true", "false"},
+     *              default=""
+     *          ),
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="Successful operation",
