@@ -23,7 +23,8 @@ final class BibPostController extends BasePostController
      * @SWG\Post(
      *     path="/v0.1/bib-post-requests",
      *     summary="Create a new Bib Post Request",
-     *     description="Request records be re-posted to the BibBulk stream. You can specify lastId or ids. If using lastId, you can post up to 500 records starting from the record after lastId.",
+     *     description="Request records be re-posted to the BibBulk stream. You can specify `lastId` and/or `lastUpdatedDate` or `ids`.
+     If using `lastId` or `lastUpdatedDate`, you can post up to 500 records starting from the record after `lastId` and/or `lastUpdatedDate`.",
      *     tags={"bibs"},
      *     operationId="createBibPostRequest",
      *     consumes={"application/json"},

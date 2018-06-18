@@ -202,8 +202,7 @@ abstract class BaseBib extends DataModel
      */
     public function translateUpdatedDate($updatedDate = '')
     {
-        return new LocalDateTime(LocalDateTime::FORMAT_DATE_TIME_RFC,
-            $updatedDate);
+        return new LocalDateTime(LocalDateTime::FORMAT_DATE_TIME_RFC, $updatedDate);
     }
 
     /**
