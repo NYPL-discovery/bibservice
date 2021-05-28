@@ -69,13 +69,22 @@ Secrets *MUST* be encrypted using KMS.
 
 ## Usage
 
-### Process a Lambda Event
+### Local testing with SAM
 
-To use `node-lambda` to process the sample API Gateway event in `event.json`, run:
+Start local test postgres db:
+```
+docker-compose -f db/docker-compose-db.yml up -d
+```
 
-~~~~
-npm run test-recap-bib
-~~~~
+Invoke on arbitrary event:
+```
+sam local invoke --profile nypl-digital-dev -t sam.local.yml -e sample/post-hl-bib.json --docker-network host
+```
+
+To connect to the local db:
+```
+docker exec -it bib-service-postgres-db psql -U postgres bib_service
+```
 
 ### Run as a Web Server
 

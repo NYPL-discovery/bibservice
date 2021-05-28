@@ -20,9 +20,9 @@ after_success:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: npm run deploy-development-vpc
+  script: npm run deploy-qa-vpc
   on:
-    branch: development
+    branch: qa
 - provider: script
   skip_cleanup: true
   script: npm run deploy-qa-vpc

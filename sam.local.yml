@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'BibService'
+
+Resources:
+  BibService:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs10.x
+      Timeout: 30
+      Layers:
+      - !Ref LibForPhp7Layer
+      Environment:
+        Variables:
+          DB_CONNECT_STRING: pgsql:host=localhost;dbname=bib_service;port=35432
+          DB_USERNAME: postgres
+          DB_PASSWORD: AQECAHh7ea2tyZ6phZgT4B9BDKwguhlFtRC6hgt+7HbmeFsrsgAAAHkwdwYJKoZIhvcNAQcGoGowaAIBADBjBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDPGaENQWVqPt6yh1uAIBEIA2X1sJ9rt9I2bBysC4UAKitPzNN7OUBGKf2IF45D9xjQVRAYt6LjpSgcwMwVuj8kQN1Eebc9sd
+          BIB_STREAM_NAME: Bib-qa
+          BIB_BULK_STREAM_NAME: BibBulk-qa
+          SCHEMA_BASE_URL: https://qa-platform.nypl.org/api/v0.1/current-schemas
+          API_BASE_URL: https://qa-platform.nypl.org/api/v0.1/
+      Events:
+        ApiGetRefileRequestsPath:
+          Type: Api
+          Properties:
+            Path: "/api/v0.1/bibs"
+            Method: POST
+        DocsPath:
+          Type: Api
+          Properties:
+            Path: "/docs/bibs"
+            Method: GET
+  LibForPhp7Layer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: lib-for-node10-wrapped-php7
+      Description:
+      ContentUri: node_modules/lib-for-node10-wrapped-php7-lambda-layer/
+      CompatibleRuntimes:
+      - nodejs10
+      LicenseInfo: 'MIT'
+      RetentionPolicy: Retain
