@@ -1,0 +1,17 @@
+version: '2' 
+services:
+  bib-service-db:
+    image: postgres:10.5-alpine
+    container_name: bib-service-postgres-db
+    environment:
+    - POSTGRES_DB=bib_service
+    - POSTGRES_PASSWORD=localpasswordsimplepassword
+    ports:
+    - '35432:5432'
+    networks:
+      bibservice:
+    volumes:
+    - ./init-test-db.sql:/docker-entrypoint-initdb.d/init.sql
+
+networks:
+  bibservice:
