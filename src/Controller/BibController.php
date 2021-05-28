@@ -7,6 +7,7 @@ use NYPL\Services\Model\Response\BulkResponse\BulkBibsResponse;
 use NYPL\Starter\BulkModels;
 use NYPL\Starter\Controller;
 use NYPL\Starter\Filter;
+use NYPL\Starter\APILogger;
 use NYPL\Services\Model\DataModel\BaseBib\Bib;
 use NYPL\Services\Model\Response\SuccessResponse\BibsResponse;
 use NYPL\Services\Model\Response\SuccessResponse\BibResponse;
@@ -82,6 +83,8 @@ final class BibController extends Controller
      */
     public function createBib()
     {
+        APILogger::addDebug('Creating ' . count($this->getRequest()->getParsedBody()) . ' bib(s)');
+
         $bulkModels = new BulkModels();
 
         foreach ($this->getRequest()->getParsedBody() as $bibData) {
@@ -93,10 +96,13 @@ final class BibController extends Controller
                 $bibData['nyplType'] = 'bib';
             }
 
+            APILogger::addDebug('Creating bib: ', $bibData);
             $bulkModels->addModel(new Bib($bibData));
         }
 
+        APILogger::addDebug('Issuing DB create call');
         $bulkModels->create(true);
+        APILogger::addDebug('Finished DB create call');
 
         return $this->getResponse()->withJson(
             new BulkBibsResponse(
