@@ -1,5 +1,5 @@
 {
-  "name": "nypl-bib-service",
+  "name": "nypl/bib-service",
   "description": "Lambda for the NYPL Bib Service",
   "require": {
     "nypl/microservice-starter": "~1.0"
