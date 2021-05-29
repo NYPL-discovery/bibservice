@@ -87,6 +87,7 @@ final class BibController extends Controller
 
         $bulkModels = new BulkModels();
 
+        $createdIds = array();
         foreach ($this->getRequest()->getParsedBody() as $bibData) {
             if (!isset($bibData['nyplSource'])) {
                 $bibData['nyplSource'] = 'sierra-nypl';
@@ -96,11 +97,11 @@ final class BibController extends Controller
                 $bibData['nyplType'] = 'bib';
             }
 
-            APILogger::addDebug('Creating bib: ', $bibData);
+            $createdIds[] = $bibData['nyplSource'] . '/' . $bibData['id'];
             $bulkModels->addModel(new Bib($bibData));
         }
 
-        APILogger::addDebug('Issuing DB create call');
+        APILogger::addDebug('Issuing DB create call on ' . join(', ', $createdIds));
         $bulkModels->create(true);
         APILogger::addDebug('Finished DB create call');
 
